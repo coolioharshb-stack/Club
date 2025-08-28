@@ -3,10 +3,11 @@ import { collection, doc, setDoc, getDocs, deleteDoc, getDoc } from "https://www
 const db = window.db;
 
 // ====== Login ======
-window.checkPassword = function() {
+document.getElementById("loginBtn").addEventListener("click", () => {
   const input = document.getElementById("password-input").value;
   const errorMsg = document.getElementById("login-error");
-  if(input === "Harsh@109") {
+  
+  if (input === "Harsh@109") {
     document.getElementById("login-screen").style.display = "none";
     document.getElementById("app").style.display = "block";
     loadClassOptions();
@@ -17,8 +18,7 @@ window.checkPassword = function() {
   } else {
     errorMsg.textContent = "Incorrect password!";
   }
-}
-
+});
 
 // ===== Navigation =====
 function showPage(pageId) {
@@ -169,4 +169,3 @@ async function exportCSV(){
 
 // ===== Initial Load =====
 showPage('dashboard');
-
