@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>School ERP</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+    import { getFirestore } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+    
+    const firebaseConfig = {
+      apiKey: "AIzaSyCt7U7AIeJztPqje39HosDLBGKWdvpi4YI",
+      authDomain: "schoolerp-2f72c.firebaseapp.com",
+      projectId: "schoolerp-2f72c",
+      storageBucket: "schoolerp-2f72c.appspot.com",
+      messagingSenderId: "537879342000",
+      appId: "1:537879342000:web:a281f7372a576741078475",
+      measurementId: "G-PRF0KTTKS3"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    window.db = db; // make Firestore global
+  </script>
+</head>
+<body>
+
+  <!-- Login Screen -->
+  <div id="login-screen">
+    <div class="login-box">
+      <h2>School ERP Login</h2>
+      <input type="password" id="password-input" placeholder="Enter Password">
+      <button onclick="checkPassword()">Login</button>
+      <p id="login-error"></p>
+    </div>
+  </div>
+
+  <!-- Main App -->
+  <div id="app" style="display:none;">
+    <nav>
+      <button onclick="showPage('dashboard')">Dashboard</button>
+      <button onclick="showPage('classes')">Manage Classes</button>
+      <button onclick="showPage('students')">Manage Students</button>
+      <button onclick="showPage('attendance')">Attendance</button>
+    </nav>
+
+    <!-- Dashboard -->
+    <div id="dashboard" class="page hidden">
+      <h2>Dashboard</h2>
+      <label>Class:</label>
+      <select id="dashClassFilter" onchange="loadDashboardStudents()"></select>
+      <label>Student:</label>
+      <select id="dashStudentFilter" onchange="showStudentAttendance()"></select>
+      <label>Date:</label>
+      <input type="date" id="dashDateFilter" onchange="showStudentAttendance()">
+      <button onclick="exportCSV()">Export CSV</button>
+      <div id="dashboardData"></div>
+    </div>
+
+    <!-- Manage Classes -->
+    <div id="classes" class="page hidden">
+      <h2>Manage Classes</h2>
+      <input type="text" id="classInput" placeholder="Class Name">
+      <input type="text" id="sectionInput" placeholder="Section">
+      <button onclick="addClass()">Add Class</button>
+      <ul id="classList"></ul>
+    </div>
+
+    <!-- Manage Students -->
+    <div id="students" class="page hidden">
+      <h2>Manage Students</h2>
+      <input type="text" id="studentNameInput" placeholder="Student Name">
+      <select id="studentClassSelect"></select>
+      <button onclick="addStudent()">Add Student</button>
+      <ul id="studentList"></ul>
+    </div>
+
+    <!-- Attendance -->
+    <div id="attendance" class="page hidden">
+      <h2>Attendance</h2>
+      <label>Class:</label>
+      <select id="attendanceClassSelect" onchange="loadAttendanceStudents()"></select>
+      <label>Date:</label>
+      <input type="date" id="attendanceDate">
+      <div id="attendanceList"></div>
+      <button onclick="submitAttendance()">Submit Attendance</button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div id="footer">Made by Harsh</div>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>
